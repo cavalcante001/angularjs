@@ -45,6 +45,19 @@
                         $scope.contatos.push(angular.copy(contato));
                         delete $scope.contato;
                   };
+                  $scope.operadoras = [{
+                              nome: "Oi",
+                              codigo: 14
+                        },
+                        {
+                              nome: "Vivo",
+                              codigo: 15
+                        },
+                        {
+                              nome: "Tim",
+                              codigo: 41
+                        },
+                  ];
             });
       </script>
 </head>
@@ -56,17 +69,23 @@
                   <tr>
                         <th>Nome</th>
                         <th>Telefone</th>
+                        <th>Operadora</th>
                   </tr>
                   <tr ng-repeat="contato in contatos">
-                        <td ng-repeat="(key,value) in contato">
-                              {{value}}
-                        </td>
+                        <td>{{contato.nome}}</td>
+                        <td>{{contato.telefone}}</td>
+                        <td>{{contato.operadora.nome}}</td>
                   </tr>
             </table>
             <hr />
             <input class="form-control" type="text" placeholder="Nome" ng-model="contato.nome" />
             <input class="form-control" type="text" placeholder="Telefone" ng-model="contato.telefone" />
-            <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)">Adicionar
+            <select class="form-control" ng-model="contato.operadora"
+                  ng-options="operadora.nome for operadora in operadoras">
+                  <option value="">Selecione uma operadora</option>
+            </select>
+            <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)"
+                  ng-disabled="!contato.nome || !contato.telefone">Adicionar
                   Contato</button>
             {{contato}}
       </div>
