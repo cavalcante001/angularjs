@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" ng-app="helloWorld">
+<html lang="pt-BR" ng-app="OlaMundo">
 
 <head>
       <meta charset="UTF-8">
@@ -9,17 +9,17 @@
 
       <script src="angular.min.js"></script>
       <script>
-            angular.module("helloWorld", []);
-            angular.module("helloWorld").controller("helloWorldController", function ($scope) {
-                  $scope.message = "Hello World!";
+            angular.module("OlaMundo", []);
+            angular.module("OlaMundo").controller("OlaMundoController", function ($scope) {
+                  $scope.mensagem = "Primeiro Olá Mundo em angularjs 1.x";
             });
       </script>
 </head>
 
 <body>
-      <div ng-controller="helloWorldController">
-            {{message}}
-      </div>
+      <p ng-controller="OlaMundoController">
+            {{mensagem}}
+      </p>
 </body>
 
 </html>
