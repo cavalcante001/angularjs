@@ -38,11 +38,10 @@
             angular.module("listaTelefonica", ["ngMessages"]);
             angular
                   .module("listaTelefonica")
-                  .controller("listaTelefonicaCtrl", function ($scope, $filter) {
+                  .controller("listaTelefonicaCtrl", function ($scope, uppercaseFilter) {
                         $scope.app = "Lista Telefônica";
                         $scope.contatos = [{
-                                    nome: $filter('uppercase')
-                                          ('Pedro'),
+                                    nome: uppercaseFilter('Pedro'),
                                     telefone: "99998888",
                                     cor: "blue",
                                     data: new Date(),
