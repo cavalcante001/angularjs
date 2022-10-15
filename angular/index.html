@@ -1,25 +1,75 @@
 <!DOCTYPE html>
-<html lang="pt-BR" ng-app="OlaMundo">
+<html lang="pt-BR" ng-app="listaTelefonica">
 
 <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Angular JS</title>
+      <title>Lista Telefônica</title>
+      <link rel="stylesheet" type="text/css" href="lib//bootstrap/bootstrap.min.css" />
+      <style>
+            .jumbotron {
+                  width: 400px;
+                  text-align: center;
+                  margin: auto;
+                  margin-top: 20px;
+            }
 
-      <script src="angular.min.js"></script>
+            .table {
+                  margin-top: 20px;
+            }
+
+            .form-control {
+                  margin-bottom: 5px;
+            }
+      </style>
+      <script src="lib/angular/angular.min.js"></script>
       <script>
-            angular.module("OlaMundo", []);
-            angular.module("OlaMundo").controller("OlaMundoController", function ($scope) {
-                  $scope.mensagem = "Primeiro Olá Mundo em angularjs 1.x";
+            angular.module('listaTelefonica', []);
+            angular.module('listaTelefonica').controller("listaTelefonicaCtrl", function ($scope) {
+                  $scope.app = "Lista Telefônica";
+                  $scope.contatos = [{
+                              nome: "Pedro",
+                              telefone: "99998888"
+                        },
+                        {
+                              nome: "Ana",
+                              telefone: "99998877"
+                        },
+                        {
+                              nome: "Maria",
+                              telefone: "99998866"
+                        },
+                  ];
+                  $scope.adicionarContato = function (contato) {
+                        $scope.contatos.push(angular.copy(contato));
+                        delete $scope.contato;
+                  };
             });
       </script>
 </head>
 
-<body>
-      <p ng-controller="OlaMundoController">
-            {{mensagem}}
-      </p>
+<body ng-controller="listaTelefonicaCtrl">
+      <div class="jumbotron">
+            <h3 ng-bind="app"></h3>
+            <table class="table table-striped">
+                  <tr>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                  </tr>
+                  <tr ng-repeat="contato in contatos">
+                        <td ng-repeat="(key,value) in contato">
+                              {{value}}
+                        </td>
+                  </tr>
+            </table>
+            <hr />
+            <input class="form-control" type="text" placeholder="Nome" ng-model="contato.nome" />
+            <input class="form-control" type="text" placeholder="Telefone" ng-model="contato.telefone" />
+            <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)">Adicionar
+                  Contato</button>
+            {{contato}}
+      </div>
 </body>
 
 </html>

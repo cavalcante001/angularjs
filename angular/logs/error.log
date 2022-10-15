@@ -1,0 +1,1 @@
+[Sat Oct 15 12:09:45.066528 2022] [autoindex:error] [pid 3772] [client 127.0.0.1:60254] AH01276: Cannot serve directory /home/paulo/sites/angular/: No matching DirectoryIndex (index.html) found, and server-generated directory index forbidden by Options directive
