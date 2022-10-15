@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="lib//bootstrap/bootstrap.min.css" />
       <style>
             .jumbotron {
-                  width: 400px;
+                  width: 600px;
                   text-align: center;
                   margin: auto;
                   margin-top: 20px;
@@ -43,16 +43,29 @@
                                     nome: "Pedro",
                                     telefone: "99998888",
                                     cor: "blue",
+                                    data: new Date(),
+                                    operadora: {
+                                          nome: 'Oi'
+                                    }
                               },
                               {
                                     nome: "Ana",
                                     telefone: "99998877",
                                     cor: "yellow",
+                                    data: new Date(),
+                                    operadora: {
+                                          nome: 'Vivo'
+                                    }
+
                               },
                               {
                                     nome: "Maria",
                                     telefone: "99998866",
                                     cor: "red",
+                                    data: new Date(),
+                                    operadora: {
+                                          nome: 'Claro'
+                                    }
                               },
                         ];
                         $scope.adicionarContato = function (contato) {
@@ -101,23 +114,25 @@
 </head>
 
 <body ng-controller="listaTelefonicaCtrl">
+
       <div class="jumbotron">
             <h3 ng-bind="app"></h3>
+            <input class="form-control" type="text" placeholder="pesquisar" ng-model="criterioDeBusca" />
             <table ng-show="contatos.length > 0" class="table">
                   <tr>
+                        <th></th>
                         <th>Nome</th>
                         <th>Telefone</th>
                         <th>Operadora</th>
-                        <th></th>
+                        <th>Data</th>
                   </tr>
-                  <tr ng-class="{'selecionado negrito' : contato.selecionado}" ng-repeat="contato in contatos">
+                  <tr ng-class="{'selecionado negrito' : contato.selecionado}"
+                        ng-repeat="contato in contatos | filter: {nome: criterioDeBusca}">
                         <td><input type="checkbox" ng-model="contato.selecionado" /></td>
-                        <td>{{contato.nome}}</td>
+                        <td>{{contato.nome | uppercase}}</td>
                         <td>{{contato.telefone}}</td>
-                        <td>{{contato.operadora.nome}}</td>
-                        <td>
-                              <div style="width: 20px; height: 20px" ng-style="{'background-color': contato.cor}"></div>
-                        </td>
+                        <td>{{contato.operadora.nome | lowercase}}</td>
+                        <td>{{contato.data | date:'dd/MM/yyyy HH:mm'}}</td>
                   </tr>
             </table>
             <hr />
