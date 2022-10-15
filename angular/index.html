@@ -41,14 +41,17 @@
                         $scope.contatos = [{
                                     nome: "Pedro",
                                     telefone: "99998888",
+                                    cor: "blue"
                               },
                               {
                                     nome: "Ana",
                                     telefone: "99998877",
+                                    cor: "yellow"
                               },
                               {
                                     nome: "Maria",
                                     telefone: "99998866",
+                                    cor: "red"
                               },
                         ];
                         $scope.adicionarContato = function (contato) {
@@ -81,6 +84,16 @@
                                     categoria: "Fixo",
                               },
                         ];
+                        $scope.apagarContatos = function (contatos) {
+                              $scope.contatos = contatos.filter(function (contato) {
+                                    if (!contato.selecionado) return contato;
+                              });
+                        };
+                        $scope.isContatoSelecionado = function (contatos) {
+                              return isContatoSelecionado = contatos.some(function (contato) {
+                                    return contato.selecionado;
+                              })
+                        };
                   });
       </script>
 </head>
@@ -93,12 +106,16 @@
                         <th>Nome</th>
                         <th>Telefone</th>
                         <th>Operadora</th>
+                        <th></th>
                   </tr>
                   <tr ng-class="{'selecionado negrito' : contato.selecionado}" ng-repeat="contato in contatos">
                         <td><input type="checkbox" ng-model="contato.selecionado" /> </td>
                         <td>{{contato.nome}}</td>
                         <td>{{contato.telefone}}</td>
                         <td>{{contato.operadora.nome}}</td>
+                        <td>
+                              <div style="width: 20px;height:20px;" ng-style="{'background-color': contato.cor}"></div>
+                        </td>
                   </tr>
             </table>
             <hr />
@@ -112,7 +129,10 @@
                   ng-disabled="!contato.nome || !contato.telefone">
                   Adicionar Contato
             </button>
-            {{contatos}}
+            <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)"
+                  ng-disabled="!isContatoSelecionado(contatos)">
+                  Apagar Contatos
+            </button>
       </div>
 </body>
 
