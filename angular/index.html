@@ -41,22 +41,23 @@
                         $scope.contatos = [{
                                     nome: "Pedro",
                                     telefone: "99998888",
-                                    cor: "blue"
+                                    cor: "blue",
                               },
                               {
                                     nome: "Ana",
                                     telefone: "99998877",
-                                    cor: "yellow"
+                                    cor: "yellow",
                               },
                               {
                                     nome: "Maria",
                                     telefone: "99998866",
-                                    cor: "red"
+                                    cor: "red",
                               },
                         ];
                         $scope.adicionarContato = function (contato) {
                               $scope.contatos.push(angular.copy(contato));
                               delete $scope.contato;
+                              $scope.contatoForm.$setPristine();
                         };
                         $scope.operadoras = [{
                                     nome: "Oi",
@@ -90,9 +91,9 @@
                               });
                         };
                         $scope.isContatoSelecionado = function (contatos) {
-                              return isContatoSelecionado = contatos.some(function (contato) {
+                              return (isContatoSelecionado = contatos.some(function (contato) {
                                     return contato.selecionado;
-                              })
+                              }));
                         };
                   });
       </script>
@@ -109,24 +110,42 @@
                         <th></th>
                   </tr>
                   <tr ng-class="{'selecionado negrito' : contato.selecionado}" ng-repeat="contato in contatos">
-                        <td><input type="checkbox" ng-model="contato.selecionado" /> </td>
+                        <td><input type="checkbox" ng-model="contato.selecionado" /></td>
                         <td>{{contato.nome}}</td>
                         <td>{{contato.telefone}}</td>
                         <td>{{contato.operadora.nome}}</td>
                         <td>
-                              <div style="width: 20px;height:20px;" ng-style="{'background-color': contato.cor}"></div>
+                              <div style="width: 20px; height: 20px" ng-style="{'background-color': contato.cor}"></div>
                         </td>
                   </tr>
             </table>
             <hr />
-            <input class="form-control" type="text" placeholder="Nome" ng-model="contato.nome" />
-            <input class="form-control" type="text" placeholder="Telefone" ng-model="contato.telefone" />
-            <select class="form-control" ng-model="contato.operadora"
-                  ng-options="operadora.nome for operadora in operadoras">
-                  <option value="">Selecione uma operadora</option>
-            </select>
+            <form name="contatoForm">
+                  <input class="form-control" type="text" placeholder="Nome" name="nome" ng-required="true"
+                        ng-minlength="10" ng-model="contato.nome" />
+                  <input class="form-control" type="text" placeholder="Telefone" name="telefone" ng-required="true"
+                        ng-model="contato.telefone" ng-pattern="/^\d{4}-\d{4}$/" />
+                  <select class="form-control" ng-model="contato.operadora" ng-required="true"
+                        ng-options="operadora.nome for operadora in operadoras">
+                        <option value="">Selecione uma operadora</option>
+                  </select>
+            </form>
+            {{ContatoForm.nome.$invalid}}
+            <div ng-show="contatoForm.nome.$error.required && contatoForm.nome.$dirty" class="alert alert-danger">
+                  Por favor, preencha o nome!
+            </div>
+            <div ng-show="contatoForm.nome.$error.minlength" class="alert alert-danger">
+                  O campo nome deve ter no mínimo 10 caracteres.
+            </div>
+            <div ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty"
+                  class="alert alert-danger">
+                  Por favor, preencha o telefone!
+            </div>
+            <div ng-show="contatoForm.telefone.$error.pattern" class="alert alert-danger">
+                  O campo telefone deve ter o formato DDDD-DDDD
+            </div>
             <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)"
-                  ng-disabled="!contato.nome || !contato.telefone">
+                  ng-disabled="contatoForm.$invalid">
                   Adicionar Contato
             </button>
             <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)"
@@ -134,6 +153,7 @@
                   Apagar Contatos
             </button>
       </div>
+
       <div ng-include="'footer.html'"></div>
 </body>
 
