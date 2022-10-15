@@ -868,3 +868,9 @@
 127.0.0.1 - - [15/Oct/2022:16:12:28 -0300] "GET /favicon.ico HTTP/1.1" 404 500
 127.0.0.1 - - [15/Oct/2022:16:12:29 -0300] "GET /lib//bootstrap/bootstrap.min.css.map HTTP/1.1" 404 500
 127.0.0.1 - - [15/Oct/2022:16:12:29 -0300] "GET /lib/angular/angular.min.js.map HTTP/1.1" 200 103044
+127.0.0.1 - - [15/Oct/2022:16:13:59 -0300] "GET / HTTP/1.1" 200 1460
+127.0.0.1 - - [15/Oct/2022:16:13:59 -0300] "GET /lib//bootstrap/bootstrap.min.css HTTP/1.1" 200 20899
+127.0.0.1 - - [15/Oct/2022:16:13:59 -0300] "GET /lib/angular/angular.min.js HTTP/1.1" 200 40447
+127.0.0.1 - - [15/Oct/2022:16:13:59 -0300] "GET /favicon.ico HTTP/1.1" 404 500
+127.0.0.1 - - [15/Oct/2022:16:13:59 -0300] "GET /lib/angular/angular.min.js.map HTTP/1.1" 200 103044
+127.0.0.1 - - [15/Oct/2022:16:13:59 -0300] "GET /lib//bootstrap/bootstrap.min.css.map HTTP/1.1" 404 500
