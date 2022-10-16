@@ -30,8 +30,9 @@
   <body ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
       <h3 ng-bind="app">{{app}}</h3>
+      <input type="text" ng-model="error">
+      <ui-alert title="Ops, aconteceu um problema!" message="error"></ui-alert>      
 
-      <div ui-alert></div>
 
       <input
         class="form-control"
