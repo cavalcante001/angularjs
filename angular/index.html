@@ -25,20 +25,20 @@
     <script src="js/filters/nameFilter.js"></script>
     <script src="js/filters/ellipsisFilter.js"></script>
     <script src="js/directives/uiAlertDirective.js"></script>
+    <script src="js/directives/uiDateDirective.js"></script>
   </head>
 
   <body ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
       <h3 ng-bind="app">{{app}}</h3>
-      <input type="text" ng-model="error">
+      <input type="text" ng-model="error" />
       <ui-alert title="Ops, aconteceu um problema!">
-            Não foi possível carregar os dados
-      </ui-alert>    
-      
-      <ui-alert title="Série sobre angularjs">
-            Episódio 10 - Criando Diretivas Parte 1
+        Não foi possível carregar os dados
       </ui-alert>
 
+      <ui-alert title="Série sobre angularjs">
+        Episódio 10 - Criando Diretivas Parte 1
+      </ui-alert>
 
       <input
         class="form-control"
@@ -86,6 +86,14 @@
           ng-required="true"
           ng-model="contato.telefone"
           ng-pattern="/^\d{4}-\d{4}$/"
+        />
+        {{contato.data}}
+        <input class="form-control" 
+          type="text"
+          ng-model="contato.data"
+          name="data"
+          placeholder="Data"
+          ui-date
         />
         <select
           class="form-control"
