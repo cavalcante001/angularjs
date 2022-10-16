@@ -26,10 +26,26 @@
     <script src="js/filters/ellipsisFilter.js"></script>
     <script src="js/directives/uiAlertDirective.js"></script>
     <script src="js/directives/uiDateDirective.js"></script>
+    <script src="js/directives//uiAccordionDirective.js"></script>
   </head>
 
   <body ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
+      <ui-accordions>
+        <ui-accordion title="Accordion 1">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere,
+          culpa.
+        </ui-accordion>
+        <ui-accordion title="Accordion 2">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse,
+          maxime?
+        </ui-accordion>
+        <ui-accordion title="Accordion 3">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores,
+          facilis.
+        </ui-accordion>
+      </ui-accordions>
+
       <h3 ng-bind="app">{{app}}</h3>
       <input type="text" ng-model="error" />
       <ui-alert title="Ops, aconteceu um problema!">
@@ -88,7 +104,8 @@
           ng-pattern="/^\d{4}-\d{4}$/"
         />
         {{contato.data}}
-        <input class="form-control" 
+        <input
+          class="form-control"
           type="text"
           ng-model="contato.data"
           name="data"
