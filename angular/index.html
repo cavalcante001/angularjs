@@ -38,73 +38,34 @@
             angular.module("listaTelefonica", ["ngMessages"]);
             angular
                   .module("listaTelefonica")
-                  .controller("listaTelefonicaCtrl", function ($scope, uppercaseFilter) {
-                        $scope.app = "Lista Telefônica";
-                        $scope.contatos = [{
-                                    nome: uppercaseFilter('Pedro'),
-                                    telefone: "99998888",
-                                    cor: "blue",
-                                    data: new Date(),
-                                    operadora: {
-                                          nome: 'Oi'
-                                    }
-                              },
-                              {
-                                    nome: "Ana",
-                                    telefone: "99998877",
-                                    cor: "yellow",
-                                    data: new Date(),
-                                    operadora: {
-                                          nome: 'Vivo'
-                                    }
+                  .controller("listaTelefonicaCtrl", function ($scope, $http) {
+                        $scope.contatos = [];                       
+                        $scope.app = "Lista Telefônica";    
 
-                              },
-                              {
-                                    nome: "Maria",
-                                    telefone: "99998866",
-                                    cor: "red",
-                                    data: new Date(),
-                                    operadora: {
-                                          nome: 'Claro'
-                                    }
-                              },
-                        ];
+                        var carregarContatos = function () {
+                              $http.get("http://localhost:5000/contatos").success(function (data) {                                    
+                                    $scope.contatos = data;
+                              }).error(function (data, status) {
+                                    $scope.message = "Aconteceu um problema: " + data; 
+                              });
+                        }
+
+                        var carregarOperadoras = function () {
+                              $http.get("http://localhost:5000/operadoras").success(function (data) {
+                                    $scope.operadoras = data;
+                              });
+                        }
+
+
                         $scope.adicionarContato = function (contato) {
-                              $scope.contatos.push(angular.copy(contato));
-                              delete $scope.contato;
-                              $scope.contatoForm.$setPristine();
+                              contato.data = new Date();
+                              $http.post("http://localhost:5000/contatos", contato).success(function (data) {
+                                    delete $scope.contato;
+                                    $scope.contatoForm.$setPristine();
+                                    carregarContatos();
+                              })
                         };
-                        $scope.operadoras = [{
-                                    nome: "Oi",
-                                    codigo: 14,
-                                    categoria: "Celular",
-                                    preco: 2
-                              },
-                              {
-                                    nome: "Vivo",
-                                    codigo: 15,
-                                    categoria: "Celular",
-                                    preco: 1
-                              },
-                              {
-                                    nome: "Tim",
-                                    codigo: 41,
-                                    categoria: "Celular",
-                                    preco: 3
-                              },
-                              {
-                                    nome: "GVT",
-                                    codigo: 25,
-                                    categoria: "Fixo",
-                                    preco: 1
-                              },
-                              {
-                                    nome: "Embratel",
-                                    codigo: 21,
-                                    categoria: "Fixo",
-                                    preco: 2
-                              },
-                        ];
+
                         $scope.apagarContatos = function (contatos) {
                               $scope.contatos = contatos.filter(function (contato) {
                                     if (!contato.selecionado) return contato;
@@ -119,6 +80,8 @@
                               $scope.criterioDeOrdenacao = campo;
                               $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
                         };
+                        carregarContatos();
+                        carregarOperadoras();
                   });
       </script>
 </head>
@@ -127,6 +90,7 @@
 
       <div class="jumbotron">
             <h3 ng-bind="app"></h3>
+            {{message}}
             <input class="form-control" type="text" placeholder="pesquisar" ng-model="criterioDeBusca" />
             <table ng-show="contatos.length > 0" class="table">
                   <tr>
