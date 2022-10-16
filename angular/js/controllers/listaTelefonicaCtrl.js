@@ -1,31 +1,29 @@
 angular
   .module("listaTelefonica")
-  .controller("listaTelefonicaCtrl", function ($scope, $http) {
+  .controller("listaTelefonicaCtrl", function ($scope, contatosAPI, operadorasAPI, serialGenerator) {
+    console.log(serialGenerator.generate());
     $scope.contatos = [];
     $scope.app = "Lista Telefônica";
 
     var carregarContatos = function () {
-      $http
-        .get("http://localhost:5000/contatos")
-        .success(function (data) {
-          $scope.contatos = data;
+      contatosAPI.getContatos().success(function (data) {
+          $scope.contatos = data; 
         })
         .error(function (data, status) {
           $scope.message = "Aconteceu um problema: " + data;
         });
     };
 
-    var carregarOperadoras = function () {
-      $http.get("http://localhost:5000/operadoras").success(function (data) {
+    var carregarOperadoras = function ( ) {
+     operadorasAPI.getOperadoras().success(function (data) {
         $scope.operadoras = data;
       });
     };
 
     $scope.adicionarContato = function (contato) {
+      contato.serial = serialGenerator.generate();
       contato.data = new Date();
-      $http
-        .post("http://localhost:5000/contatos", contato)
-        .success(function (data) {
+        contatosAPI.saveContato(contato).success(function (data) {
           delete $scope.contato;
           $scope.contatoForm.$setPristine();
           carregarContatos();
