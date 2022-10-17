@@ -1,0 +1,16 @@
+Single-Page Application é uma aplicação que realiza suas transições dentro de uma mesma página, carregando seus componentes de forma dinãmica utilizando ajax
+
+ngRoute
+Módulo do framework que fornece serviços para realizar
+o roteamento de páginas.
+
+$routeProvider
+
+Podemos configurar o serviço de roteamento por meio de $routerProvider configurando
+cada rota específica e também uma rota padrão, caso nenhuma seja encontrada.
+
+when (path, route);
+otherwise (path)
+
+route object
+Objeto de configuração de cada rota, permite configurar diversos aspectos do roteamento
